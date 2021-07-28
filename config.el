@@ -7,7 +7,7 @@
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
 (setq user-full-name "Uri Arev"
-      user-mail-address "uri.arev@gmail.com")
+      user-mail-address "me@wantyapps.xyz")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
@@ -33,10 +33,7 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t
-      org-agenda-files '("~/Org/agenda.org" "~/Org/todo.org")
-      org-default-notes-file (expand-file-name "notes.org" org-directory))
-
+(setq display-line-numbers-type 'relative)
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -76,8 +73,10 @@
       (setq mu4e-change-filenames-when-moving t)
 
       ;; list of your email adresses:
-      (setq user-mail-address "uri.arev@gmail.com")
+      (setq user-mail-address "me@wantyapps.xyz")
       (setq mu4e-get-mail-command "true")
+      (setq smtpmail-smtp-service 587)
+      (setq smtpmail-smtp-server "mail.wantyapps.xyz")
 
 (map! :after tex
       :map TeX-mode-map
@@ -97,3 +96,9 @@
         org-journal-date-format "%B %d, %Y (%A) "
         org-journal-file-format "%Y-%m-%d.org"
         org-hide-emphasis-markers t))
+
+
+(set-face-attribute 'default nil
+        :font "SauceCodePro Nerd Font"
+        :weight 'medium)
+(add-to-list 'default-frame-alist '(font . "SauceCodePro Nerd Font"))
