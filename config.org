@@ -1,18 +1,60 @@
+#+TITLE: Wantyapps's Doom Emacs configuration
+#+AUTHOR: Uri Arev
+#+PROPERTY: header-args :tangle config.el
+#+STARTUP: fold
+
+
+* Table of Contents :toc:
+- [[#personal-stuff][Personal Stuff]]
+  - [[#name-and-email][Name and email]]
+- [[#look-and-feel][Look and Feel]]
+  - [[#theme][Theme]]
+  - [[#line-numbers][Line Numbers]]
+  - [[#font][Font]]
+- [[#email-client-mu4e][Email Client (Mu4e)]]
+  - [[#basic-config][Basic Config]]
+- [[#latex][LaTeX]]
+  - [[#config][Config]]
+- [[#org-mode][Org Mode]]
+  - [[#config-1][Config]]
+
+* Personal Stuff
+** Name and email
+#+begin_src emacs-lisp
 (setq user-full-name "Uri Arev" ;; If you didn't know, this is my name 🙃
       user-mail-address "me@wantyapps.xyz") ;; Hosted by my own website!
+#+end_src
 
+* Look and Feel
+** Theme
+I am using the default Doom Emacs theme (dark)
+#+begin_src emacs-lisp
 (setq doom-theme 'doom-one)
-
+#+end_src
+** Line Numbers
+I like to use relative line numbers (coming from vim)
+#+begin_src emacs-lisp
 (setq display-line-numbers-type 'relative)
-
+#+end_src
+** Font
+I use SauceCodePro (A Source Code Pro Nerd Font)
+#+begin_src emacs-lisp
 (set-face-attribute 'default nil
                     :font "SauceCodePro Nerd Font"
                     :weight 'medium)
 (add-to-list 'default-frame-alist '(font . "SauceCodePro Nerd Font"))
+#+end_src
 
+* Email Client (Mu4e)
+I use Mu to manage my emails, so I use Mu4e too...
+** Basic Config
+#+begin_src emacs-lisp
 (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu/mu4e")
 (require 'smtpmail)
+#+end_src
 
+Below is my Mu4e configuration, pretty normal.
+#+begin_src emacs-lisp
 (setq mu4e-mu-binary "/usr/local/bin/mu"
       mu4e-maildir "~/.maildir" ;; I like my maildir being ".maildir"
       mu4e-get-mail-command (concat (executable-find "mbsync") " -a")
@@ -20,17 +62,36 @@
       mu4e-attachment-dir "~/Desktop" ;; Where macOS stores screenshots by default
       mu4e-change-filenames-when-moving t)
 (add-hook 'mu4e-compose-mode-hook 'company-mode) ;; Address autocompletion
+#+end_src
 
+This is a pretty normal smtpmail configuration.
+#+begin_src emacs-lisp
 (setq smtpmail-smtp-service 587 ;; My website's smtp port
       smtpmail-smtp-server "mail.wantyapps.xyz") ;; My website's smtp server
+#+end_src
 
+That's it! It doesn't look that hard to configure, but it took me literal hours.
+
+* LaTeX
+LaTeX! My favorite markup language for everything (except Org and Markdown.)
+
+** Config
+I didn't like the Doom Emacs auto-quote for emacs, so I disabled it!
+#+begin_src emacs-lisp
 (map! :after tex
       :map TeX-mode-map
       "\"" nil)
 (after! smartparens-latex
   (sp-local-pair '(tex-mode plain-tex-mode latex-mode LaTeX-mode)
                  "``" "''" :actions :rem))
+#+end_src
 
+#+RESULTS:
+
+* Org Mode
+Ahhhhhh, I really love Org Mode. Let's configure it!
+** Config
+#+begin_src emacs-lisp
 (after! org
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
   (setq org-directory "~/Org/" ;; I like my Org files directory being at my home directory
@@ -42,5 +103,9 @@
         org-journal-date-format "%B %d, %Y (%A)"
         org-journal-file-format "%Y-%m-%d.org" ;; Even this doesn't work. TODO: Fix Org Journal
         org-hide-emphasis-markers t))
+#+end_src
 
+I tried using a notification system for org-agenda. It did not go well.
+#+begin_src emacs-lisp
 (setq alert-default-style 'notifier) ;; DOES NOT WORK. TODO: Fix that thing
+#+end_src
