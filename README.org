@@ -1,7 +1,14 @@
+:PROPERTIES:
+:DIR:      /Users/uriarev/Desktop/
+:END:
 #+TITLE: Wantyapps's Doom Emacs configuration
 #+AUTHOR: Uri Arev
 #+PROPERTY: header-args :tangle config.el
 #+STARTUP: fold
+
+
+[[./assets/screenshot.png]]
+
 
 
 * Table of Contents :toc:
