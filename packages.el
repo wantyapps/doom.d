@@ -1,12 +1,14 @@
 ;; -*- no-byte-compile: t; -*-
 ;;; $DOOMDIR/packages.el
 
+(package! clangd)
 (package! auctex)
 (package! org-bullets)
 (package! password-store)
 (package! go-mode)
 (package! fireplace)
-(package! org-alert)
+(package! org-wild-notifier)
+(package! vterm)
 ;; To install a package with Doom you must declare them here and run 'doom sync'
 ;; on the command line, then restart Emacs for the changes to take effect -- or
 ;; use 'M-x doom/reload'.

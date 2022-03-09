@@ -5,6 +5,8 @@
 
 (setq display-line-numbers-type 'relative)
 
+;; (menu-bar-mode t)
+
 (set-face-attribute 'default nil
                     :font "SauceCodePro Nerd Font"
                     :weight 'medium)
@@ -31,16 +33,19 @@
   (sp-local-pair '(tex-mode plain-tex-mode latex-mode LaTeX-mode)
                  "``" "''" :actions :rem))
 
+(setq tex-pdf-view-command "zathura")
+
 (after! org
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-  (setq org-directory "~/Org/" ;; I like my Org files directory being at my home directory
+  (setq org-directory "~/Documents/Org/" ;; I like my Org files directory being at my home directory
         org-agenda-files (list org-directory) ;; ALL the files in the Org directory are being searched for tasks
         org-default-notes-file (expand-file-name "notes.org" org-directory) ;; My notes are at notes.org
         org-ellipsis " ▼ " ;; Yes.
         org-log-done 'time
-        org-journal-dir "~/Org/journal" ;; For some weird reason, this doesn't work
+        org-journal-dir "~/Documents/Org/journal" ;; For some weird reason, this doesn't work
         org-journal-date-format "%B %d, %Y (%A)"
         org-journal-file-format "%Y-%m-%d.org" ;; Even this doesn't work. TODO: Fix Org Journal
         org-hide-emphasis-markers t))
 
-(setq alert-default-style 'notifier) ;; DOES NOT WORK. TODO: Fix that thing
+(setq alert-default-style 'osx-notifier)
+(org-wild-notifier-mode)

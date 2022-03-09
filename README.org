@@ -17,6 +17,7 @@
 - [[#look-and-feel][Look and Feel]]
   - [[#theme][Theme]]
   - [[#line-numbers][Line Numbers]]
+  - [[#tiling-emacs-in-yabai][Tiling Emacs in Yabai]]
   - [[#font][Font]]
 - [[#email-client-mu4e][Email Client (Mu4e)]]
   - [[#basic-config][Basic Config]]
@@ -43,6 +44,13 @@ I like to use relative line numbers (coming from vim)
 #+begin_src emacs-lisp
 (setq display-line-numbers-type 'relative)
 #+end_src
+** Tiling Emacs in Yabai
+I use "Yabai" as my tiling window manager on mac, and emacs by default
+isn't quite working well with it
+#+begin_src emacs-lisp
+;; (menu-bar-mode t)
+#+end_src
+Turns out it also doesn't work lol
 ** Font
 I use SauceCodePro (A Source Code Pro Nerd Font)
 #+begin_src emacs-lisp
@@ -83,7 +91,7 @@ That's it! It doesn't look that hard to configure, but it took me literal hours.
 LaTeX! My favorite markup language for everything (except Org and Markdown.)
 
 ** Config
-I didn't like the Doom Emacs auto-quote for emacs, so I disabled it!
+I didn't like the Doom Emacs auto-quote for emacs, so I disabled it
 #+begin_src emacs-lisp
 (map! :after tex
       :map TeX-mode-map
@@ -92,21 +100,22 @@ I didn't like the Doom Emacs auto-quote for emacs, so I disabled it!
   (sp-local-pair '(tex-mode plain-tex-mode latex-mode LaTeX-mode)
                  "``" "''" :actions :rem))
 #+end_src
-
-#+RESULTS:
-
+Setting Zathura as the default view command
+#+begin_src emacs-lisp
+(setq tex-pdf-view-command "zathura")
+#+end_src
 * Org Mode
 Ahhhhhh, I really love Org Mode. Let's configure it!
 ** Config
 #+begin_src emacs-lisp
 (after! org
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-  (setq org-directory "~/Org/" ;; I like my Org files directory being at my home directory
+  (setq org-directory "~/Documents/Org/" ;; I like my Org files directory being at my home directory
         org-agenda-files (list org-directory) ;; ALL the files in the Org directory are being searched for tasks
         org-default-notes-file (expand-file-name "notes.org" org-directory) ;; My notes are at notes.org
         org-ellipsis " ▼ " ;; Yes.
         org-log-done 'time
-        org-journal-dir "~/Org/journal" ;; For some weird reason, this doesn't work
+        org-journal-dir "~/Documents/Org/journal" ;; For some weird reason, this doesn't work
         org-journal-date-format "%B %d, %Y (%A)"
         org-journal-file-format "%Y-%m-%d.org" ;; Even this doesn't work. TODO: Fix Org Journal
         org-hide-emphasis-markers t))
@@ -114,5 +123,6 @@ Ahhhhhh, I really love Org Mode. Let's configure it!
 
 I tried using a notification system for org-agenda. It did not go well.
 #+begin_src emacs-lisp
-(setq alert-default-style 'notifier) ;; DOES NOT WORK. TODO: Fix that thing
+(setq alert-default-style 'osx-notifier)
+(org-wild-notifier-mode)
 #+end_src
